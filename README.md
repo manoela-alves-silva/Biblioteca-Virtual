@@ -204,6 +204,12 @@ obras e nomes pertencem aos seus autores e editoras.
 Só entram citações que foram **conferidas** numa fonte. Frases muito compartilhadas na
 internet, mas sem origem comprovada, ficam de fora. Por isso nem todo autor tem citação.
 
+### Licença
+
+O **código** está sob a [licença MIT](LICENSE): pode estudar, copiar e reaproveitar.
+Ela não vale para as fotos, que seguem as licenças do Wikimedia Commons indicadas
+abaixo, nem para os textos e obras dos autores citados.
+
 ### Créditos das fotos
 
 As fotos com crédito vêm do [Wikimedia Commons](https://commons.wikimedia.org), com
