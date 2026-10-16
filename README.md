@@ -42,7 +42,8 @@ O layout se adapta a telas pequenas.
 Precisa do **PHP 8.1+** com a extensão `pdo_sqlite`.
 
 ```bash
-cd biblioteca
+git clone https://github.com/manoela-alves-silva/Biblioteca-Virtual.git
+cd Biblioteca-Virtual
 php -S localhost:8000 -t public
 ```
 
@@ -74,7 +75,7 @@ php database/instalar.php
 ## 🗂️ Estrutura (e o porquê de cada pasta)
 
 ```
-biblioteca/
+Biblioteca-Virtual/
 ├── public/              ← A ÚNICA pasta que o navegador enxerga
 │   ├── index.php        ← páginas do site
 │   ├── livros.php · livro.php · autores.php · autor.php
