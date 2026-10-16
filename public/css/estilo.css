@@ -1,0 +1,1309 @@
+/* =====================================================================
+   ESTANTE ABERTA - estilo.css
+
+   CORES: todas as cores ficam em variáveis (--nome) no :root.
+   O modo escuro NÃO repete o CSS: ele só troca o valor das variáveis.
+
+   - Modo claro: valores do :root abaixo
+   - Modo escuro: quando o sistema está escuro (prefers-color-scheme)
+                  ou quando a pessoa clica no botão 🌙 (data-tema="escuro")
+   ===================================================================== */
+
+:root {
+    --fundo: #FFF8F0;
+    --fundo-card: #FFFFFF;
+    --fundo-campo: #FFFFFF;
+    --texto: #2B2340;
+    --texto-suave: #6E6880;
+    --borda: #EFE6DA;
+    --escuro: #2B2340;          /* rodapé, faixa de aviso e menu do admin */
+
+    --coral: #FF6B57;
+    --coral-escuro: #E8513D;
+    --amarelo: #FFC24B;
+    --lilas: #B9A4FF;
+    --marca-texto: #CDBDFF;     /* o "grifo" atrás da palavra "mudam" */
+
+    --sucesso-fundo: #E3F5EE;
+    --sucesso-texto: #1F6E55;
+    --aviso-fundo: #FFF0D6;
+    --aviso-texto: #9A6416;
+    --erro-fundo: #FDE2E2;
+    --erro-texto: #C53A3A;
+
+    /* Usadas para clarear/escurecer as cores de cada autor (color-mix) */
+    --mistura: #FFFFFF;
+    --contraste: #000000;
+
+    --sombra: 0 6px 20px rgba(43, 35, 64, 0.08);
+    --raio: 18px;
+}
+
+/* Valores do MODO ESCURO (escritos uma vez só, usados nos dois casos abaixo) */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-tema="claro"]) {
+        --fundo: #17141F;
+        --fundo-card: #221D2E;
+        --fundo-campo: #1B1726;
+        --texto: #F3EEF8;
+        --texto-suave: #B3ABC2;
+        --borda: #393148;
+        --escuro: #0F0D15;
+        --coral: #FF7A66;
+        --coral-escuro: #FF927F;
+        --marca-texto: #5B48A8;
+        --sucesso-fundo: #173A30;
+        --sucesso-texto: #8FE0BF;
+        --aviso-fundo: #3B2E17;
+        --aviso-texto: #F5C46B;
+        --erro-fundo: #45201F;
+        --erro-texto: #FF9C9C;
+        --mistura: #1B1726;
+        --contraste: #FFFFFF;
+        --sombra: 0 6px 20px rgba(0, 0, 0, 0.35);
+    }
+}
+
+:root[data-tema="escuro"] {
+    --fundo: #17141F;
+    --fundo-card: #221D2E;
+    --fundo-campo: #1B1726;
+    --texto: #F3EEF8;
+    --texto-suave: #B3ABC2;
+    --borda: #393148;
+    --escuro: #0F0D15;
+    --coral: #FF7A66;
+    --coral-escuro: #FF927F;
+    --marca-texto: #5B48A8;
+    --sucesso-fundo: #173A30;
+    --sucesso-texto: #8FE0BF;
+    --aviso-fundo: #3B2E17;
+    --aviso-texto: #F5C46B;
+    --erro-fundo: #45201F;
+    --erro-texto: #FF9C9C;
+    --mistura: #1B1726;
+    --contraste: #FFFFFF;
+    --sombra: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', Arial, sans-serif;
+    background-color: var(--fundo);
+    color: var(--texto);
+    line-height: 1.6;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    line-height: 1.2;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+code {
+    background-color: var(--fundo-card);
+    border: 1px solid var(--borda);
+    border-radius: 6px;
+    padding: 1px 6px;
+    font-size: 0.9em;
+}
+
+/* Contorno visível para quem navega pelo teclado (acessibilidade) */
+:focus-visible {
+    outline: 3px solid var(--lilas);
+    outline-offset: 2px;
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+main.container {
+    padding-top: 32px;
+    padding-bottom: 60px;
+    min-height: 70vh;
+}
+
+/* ----------------------------- BOTÕES ----------------------------- */
+
+.botao {
+    display: inline-block;
+    padding: 12px 22px;
+    background-color: var(--coral);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 999px;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform 0.15s, background-color 0.15s;
+}
+
+.botao:hover {
+    background-color: var(--coral-escuro);
+    transform: translateY(-2px);
+}
+
+.botao-claro {
+    background-color: var(--fundo-card);
+    color: var(--texto);
+    border: 2px solid var(--texto);
+}
+
+.botao-claro:hover {
+    background-color: var(--amarelo);
+    border-color: var(--amarelo);
+    color: #2B2340;
+}
+
+.botao-cheio {
+    width: 100%;
+}
+
+.botoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.botao-tema {
+    width: 38px;
+    height: 38px;
+    border: 2px solid var(--borda);
+    border-radius: 50%;
+    background-color: var(--fundo-card);
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.botao-tema:hover {
+    transform: rotate(20deg);
+}
+
+.selo {
+    display: inline-block;
+    background-color: var(--amarelo);
+    color: #2B2340;
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.voltar {
+    display: inline-block;
+    margin-bottom: 24px;
+    color: var(--texto-suave);
+    font-weight: 600;
+}
+
+.voltar:hover {
+    color: var(--coral);
+}
+
+.pequeno-texto {
+    font-size: 0.9rem;
+    color: var(--texto-suave);
+}
+
+.pequeno-texto a, .fonte a, .caixa-destaque a {
+    color: var(--coral);
+    font-weight: 800;
+}
+
+/* ----------------------------- ALERTAS (mensagens flash) ----------------------------- */
+
+.alerta {
+    padding: 12px 18px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    animation: aparecer 0.3s ease-out;
+}
+
+.alerta-sucesso {
+    background-color: var(--sucesso-fundo);
+    color: var(--sucesso-texto);
+}
+
+.alerta-erro {
+    background-color: var(--erro-fundo);
+    color: var(--erro-texto);
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------- FAIXA DE AVISO + TOPO ----------------------------- */
+
+.faixa-aviso {
+    background-color: var(--escuro);
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 0.85rem;
+    padding: 7px 16px;
+}
+
+.faixa-aviso a {
+    color: var(--amarelo);
+    font-weight: 800;
+    text-decoration: underline;
+}
+
+.topo {
+    background-color: var(--fundo-card);
+    border-bottom: 2px solid var(--borda);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.topo-conteudo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.logo {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+}
+
+.logo span {
+    color: var(--coral);
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.menu a {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: background-color 0.15s;
+}
+
+.menu a:hover {
+    background-color: var(--fundo);
+}
+
+.menu a.ativo {
+    background-color: var(--texto);
+    color: var(--fundo);
+}
+
+.menu .icone {
+    padding: 6px 10px;
+}
+
+.bolinha {
+    display: inline-block;
+    min-width: 22px;
+    padding: 0 6px;
+    background-color: var(--coral);
+    color: #FFFFFF;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* ----------------------------- FOTO DO AUTOR / AVATAR ----------------------------- */
+
+.foto-autor {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Quando não há foto: quadro colorido com as iniciais */
+.avatar {
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--cor), color-mix(in srgb, var(--cor), #2B2340 35%));
+    color: #FFFFFF;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 800;
+    container-type: inline-size;
+}
+
+.avatar span {
+    font-size: 38cqi; /* tamanho proporcional à caixa */
+    line-height: 1;
+}
+
+.redonda {
+    border-radius: 50%;
+    aspect-ratio: 1;
+}
+
+.retrato {
+    aspect-ratio: 3 / 4;
+    border-radius: var(--raio);
+}
+
+/* ----------------------------- HOME (HERO) ----------------------------- */
+
+.hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: center;
+    padding: 30px 0 50px;
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    margin: 16px 0;
+}
+
+.destaque {
+    background: linear-gradient(transparent 60%, var(--marca-texto) 60%);
+}
+
+.hero p {
+    color: var(--texto-suave);
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+}
+
+.hero-fotos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.hero-fotos a {
+    border-radius: var(--raio);
+    overflow: hidden;
+    border: 4px solid var(--cor);
+    aspect-ratio: 1;
+    transition: transform 0.2s;
+}
+
+.hero-fotos a:nth-child(odd) {
+    transform: rotate(-3deg);
+}
+
+.hero-fotos a:nth-child(even) {
+    transform: rotate(3deg) translateY(20px);
+}
+
+.hero-fotos a:hover {
+    transform: rotate(0) scale(1.04);
+}
+
+/* Faixa com todos os autores (rola para o lado) */
+.faixa-autores {
+    display: flex;
+    gap: 22px;
+    overflow-x: auto;
+    padding: 6px 4px 14px;
+    scroll-snap-type: x mandatory;
+}
+
+.bolha-autor {
+    flex: 0 0 104px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.25;
+    scroll-snap-align: start;
+}
+
+.bolha-autor .foto-autor {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 8px;
+    border: 4px solid var(--cor);
+    transition: transform 0.2s;
+}
+
+.bolha-autor:hover .foto-autor {
+    transform: scale(1.07) rotate(-3deg);
+}
+
+/* Citação em destaque na home.
+   O fundo é a cor do autor misturada com --mistura (branco no claro,
+   roxo bem escuro no escuro). Assim o texto sempre fica legível. */
+.citacao-destaque {
+    margin-top: 60px;
+    padding: 50px 30px;
+    text-align: center;
+    border-radius: var(--raio);
+    background-color: color-mix(in srgb, var(--cor), var(--mistura) 82%);
+    border: 2px solid color-mix(in srgb, var(--cor), var(--mistura) 60%);
+}
+
+.citacao-destaque blockquote {
+    max-width: 760px;
+    margin: 0 auto 14px;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--texto);
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+}
+
+.citacao-destaque a {
+    font-weight: 800;
+    color: color-mix(in srgb, var(--cor), var(--contraste) 35%);
+}
+
+/* ----------------------------- SEÇÕES ----------------------------- */
+
+.secao {
+    margin-top: 50px;
+}
+
+.secao-titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.secao-titulo h2 {
+    font-size: 1.7rem;
+}
+
+.secao-titulo a {
+    color: var(--coral);
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.cabecalho-pagina {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.cabecalho-pagina h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+}
+
+.cabecalho-pagina p {
+    color: var(--texto-suave);
+    font-size: 1.1rem;
+}
+
+.abas {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.abas a {
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 2px solid var(--borda);
+    background-color: var(--fundo-card);
+    font-weight: 800;
+}
+
+.abas a.ativo {
+    background-color: var(--texto);
+    border-color: var(--texto);
+    color: var(--fundo);
+}
+
+/* ----------------------------- CAPA DE LIVRO ----------------------------- */
+/* As capas são feitas só com CSS! A cor vem do PHP pela variável --cor. */
+
+.capa {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    aspect-ratio: 2 / 3;
+    padding: 18px 16px 16px 26px;
+    border-radius: 6px 14px 14px 6px;
+    background: linear-gradient(135deg, var(--cor), color-mix(in srgb, var(--cor), black 25%));
+    color: #FFFFFF;
+    box-shadow: var(--sombra);
+    overflow: hidden;
+}
+
+/* A "lombada" do livro */
+.capa::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Um círculo decorativo */
+.capa::after {
+    content: "";
+    position: absolute;
+    right: -30px;
+    bottom: -30px;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.capa-titulo {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    line-height: 1.15;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.capa-autora {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+.capa-grande .capa-titulo {
+    font-size: 1.8rem;
+}
+
+/* ----------------------------- CARDS DE LIVRO ----------------------------- */
+
+.grade-livros {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 28px;
+}
+
+.card-capa {
+    position: relative;
+}
+
+.card-livro .capa {
+    transition: transform 0.2s;
+}
+
+/* Espaço para o título não ficar embaixo do coração */
+.card-livro .capa-titulo {
+    padding-right: 34px;
+}
+
+.card-livro:hover .capa {
+    transform: translateY(-6px) rotate(-1deg);
+}
+
+/* Botão de coração em cima da capa */
+.form-coracao {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+}
+
+.coracao {
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: var(--sombra);
+    transition: transform 0.15s;
+}
+
+.coracao:hover {
+    transform: scale(1.15);
+}
+
+.card-info {
+    padding-top: 12px;
+}
+
+.card-info h3 {
+    font-size: 1.05rem;
+}
+
+.card-info h3 a:hover {
+    color: var(--coral);
+}
+
+.card-info .etiqueta {
+    display: inline-block;
+    margin-top: 6px;
+}
+
+.nome-autora {
+    display: block;
+    color: var(--texto-suave);
+    font-size: 0.9rem;
+}
+
+a.nome-autora:hover, .nome-autora a:hover {
+    color: var(--coral);
+}
+
+.etiqueta {
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background-color: var(--sucesso-fundo);
+    color: var(--sucesso-texto);
+    white-space: nowrap;
+}
+
+.etiqueta.baixo {
+    background-color: var(--aviso-fundo);
+    color: var(--aviso-texto);
+}
+
+/* ----------------------------- BUSCA / FILTROS ----------------------------- */
+
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.filtros input[type="search"], .filtros select,
+.formulario input:not([type="checkbox"]):not([type="color"]):not([type="file"]),
+.formulario select, .formulario textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--borda);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 1rem;
+    background-color: var(--fundo-campo);
+    color: var(--texto);
+}
+
+.filtros input[type="search"] {
+    flex: 1;
+    min-width: 200px;
+    max-width: 340px;
+}
+
+.filtros select {
+    width: auto;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--lilas) !important;
+}
+
+.checkbox {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600 !important;
+    cursor: pointer;
+}
+
+.checkbox input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--coral);
+}
+
+.limpar {
+    color: var(--texto-suave);
+    text-decoration: underline;
+}
+
+.contador {
+    text-align: center;
+    color: var(--texto-suave);
+    margin-bottom: 28px;
+}
+
+.vazio {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.vazio > span {
+    font-size: 3.5rem;
+}
+
+.vazio p {
+    color: var(--texto-suave);
+    margin: 10px 0 20px;
+}
+
+/* Paginação */
+.paginacao {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 40px;
+}
+
+.paginacao a {
+    min-width: 42px;
+    padding: 8px 14px;
+    text-align: center;
+    border-radius: 999px;
+    background-color: var(--fundo-card);
+    border: 2px solid var(--borda);
+    font-weight: 800;
+}
+
+.paginacao a:hover {
+    border-color: var(--coral);
+}
+
+.paginacao a.ativo {
+    background-color: var(--coral);
+    border-color: var(--coral);
+    color: #FFFFFF;
+}
+
+/* ----------------------------- DETALHE DO LIVRO ----------------------------- */
+
+.detalhe-livro {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+.detalhe-info h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.detalhe-info .nome-autora {
+    font-size: 1.05rem;
+    margin: 6px 0 20px;
+}
+
+.detalhe-info .nome-autora a {
+    color: var(--coral);
+    font-weight: 800;
+}
+
+.sinopse {
+    font-size: 1.15rem;
+    margin-bottom: 28px;
+}
+
+.caixa-compra {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    background-color: var(--fundo-card);
+    padding: 22px;
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+}
+
+/* ----------------------------- AUTORES ----------------------------- */
+
+.grade-autoras {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+.card-autora {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    background-color: var(--fundo-card);
+    padding: 28px 22px;
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+    border-top: 6px solid var(--cor);
+    transition: transform 0.2s;
+}
+
+.card-autora:hover {
+    transform: translateY(-6px);
+}
+
+.card-autora .foto-autor {
+    width: 130px;
+    height: 130px;
+    border: 5px solid var(--cor);
+}
+
+.bandeira {
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+}
+
+.card-autora p {
+    flex-grow: 1;
+}
+
+.ler-mais {
+    font-weight: 800;
+    color: var(--coral);
+}
+
+/* Página de um autor (a "biografia") */
+
+.perfil {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+.perfil-foto .foto-autor {
+    box-shadow: 14px 14px 0 var(--cor);
+}
+
+.perfil-foto figcaption {
+    margin-top: 22px;
+    font-size: 0.75rem;
+    color: var(--texto-suave);
+}
+
+.perfil-texto h1 {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    margin: 12px 0 14px;
+}
+
+.fatos {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    margin-bottom: 22px;
+    padding: 14px 18px;
+    background-color: var(--fundo-card);
+    border-radius: 12px;
+    font-size: 0.95rem;
+}
+
+.perfil-texto p {
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+}
+
+.perfil-texto .fonte {
+    margin-top: 22px;
+    font-size: 0.9rem;
+    color: var(--texto-suave);
+}
+
+blockquote {
+    margin-top: 26px;
+    padding: 20px 24px;
+    border-left: 6px solid var(--cor, var(--coral));
+    background-color: var(--fundo-card);
+    border-radius: 0 var(--raio) var(--raio) 0;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.3rem;
+    font-style: italic;
+}
+
+/* De onde veio a citação (embaixo da frase) */
+.fonte-citacao {
+    display: block;
+    margin-top: 10px;
+    font-family: 'Nunito', Arial, sans-serif;
+    font-size: 0.85rem;
+    font-style: normal;
+    color: var(--texto-suave);
+}
+
+.fonte-citacao a {
+    color: var(--coral);
+    font-weight: 800;
+}
+
+/* ----------------------------- BLOG ----------------------------- */
+
+.grade-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.card-post {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    background-color: var(--fundo-card);
+    padding: 22px;
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+    transition: transform 0.2s;
+}
+
+.card-post:hover {
+    transform: translateY(-4px);
+}
+
+.card-post h3 {
+    margin: 4px 0 6px;
+}
+
+.card-post p {
+    color: var(--texto-suave);
+}
+
+.post-emoji {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    font-size: 2rem;
+    border-radius: 16px;
+    background-color: color-mix(in srgb, var(--cor), var(--mistura) 70%);
+}
+
+.post-emoji.grande {
+    width: 90px;
+    height: 90px;
+    font-size: 3rem;
+    margin-bottom: 16px;
+}
+
+.post-data {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--coral);
+}
+
+.post {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.post h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    margin: 6px 0 24px;
+}
+
+.post p {
+    font-size: 1.15rem;
+    margin-bottom: 18px;
+}
+
+.mini-autora {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 30px;
+    padding: 14px;
+    background-color: var(--fundo-card);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+}
+
+.mini-autora .foto-autor {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+}
+
+.mini-autora:hover strong {
+    color: var(--coral);
+}
+
+/* Comentários */
+.comentarios {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.comentarios h2 {
+    margin-bottom: 20px;
+}
+
+.comentario {
+    display: flex;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 2px dashed var(--borda);
+}
+
+.comentario strong {
+    margin-right: 8px;
+}
+
+.avatar-mini {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--lilas);
+    color: #2B2340;
+    font-weight: 800;
+}
+
+.comentarios .formulario {
+    margin-top: 26px;
+}
+
+/* ----------------------------- PÁGINA SOBRE ----------------------------- */
+
+.sobre h2 {
+    margin: 34px 0 12px;
+    font-size: 1.6rem;
+}
+
+.caixa-destaque {
+    padding: 18px 22px;
+    border-radius: var(--raio);
+    background-color: var(--aviso-fundo);
+    color: var(--texto);
+    border: 2px solid var(--amarelo);
+    font-size: 1.05rem;
+}
+
+.lista-bonita {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 1.05rem;
+}
+
+.lista-bonita li::before {
+    content: "✔ ";
+    color: var(--coral);
+    font-weight: 800;
+}
+
+.tabela-creditos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 14px;
+    background-color: var(--fundo-card);
+    border-radius: var(--raio);
+    overflow: hidden;
+    box-shadow: var(--sombra);
+}
+
+.tabela-creditos td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--borda);
+    font-size: 0.95rem;
+}
+
+.tabela-creditos tr:last-child td {
+    border-bottom: none;
+}
+
+.tabela-creditos a {
+    font-weight: 800;
+}
+
+.tabela-creditos a:hover {
+    color: var(--coral);
+}
+
+/* ----------------------------- FORMULÁRIOS / CONTATO ----------------------------- */
+
+.contato {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.contato-info {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background-color: var(--fundo-card);
+    padding: 18px;
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+}
+
+.info-item span {
+    font-size: 1.8rem;
+}
+
+.info-item a {
+    color: var(--coral);
+    font-weight: 800;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: var(--fundo-card);
+    padding: 28px;
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+}
+
+.formulario label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-weight: 800;
+}
+
+.formulario small {
+    font-weight: 400;
+    color: var(--texto-suave);
+}
+
+.formulario small a {
+    color: var(--coral);
+}
+
+.erros {
+    list-style: none;
+    background-color: var(--erro-fundo);
+    color: var(--erro-texto);
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.caixa-sucesso {
+    text-align: center;
+    background-color: var(--fundo-card);
+    padding: 40px 28px;
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+}
+
+.caixa-sucesso span {
+    font-size: 3.5rem;
+}
+
+.caixa-sucesso p {
+    color: var(--texto-suave);
+    margin: 8px 0 20px;
+}
+
+/* ----------------------------- RODAPÉ ----------------------------- */
+
+.rodape-site {
+    background-color: var(--escuro);
+    color: #FFFFFF;
+    padding: 40px 0 24px;
+}
+
+.rodape-conteudo {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 26px;
+}
+
+.rodape-conteudo p {
+    max-width: 380px;
+    margin-top: 8px;
+    opacity: 0.8;
+}
+
+.rodape-conteudo nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.rodape-conteudo nav a:hover {
+    color: var(--amarelo);
+}
+
+.aviso-legal {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 20px;
+}
+
+.aviso-legal p {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+.pequeno {
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* ----------------------------- CELULAR ----------------------------- */
+/* Quando a tela for menor que 800px, tudo vira uma coluna só. */
+
+@media (max-width: 800px) {
+    .hero, .detalhe-livro, .perfil, .contato {
+        grid-template-columns: 1fr;
+    }
+
+    .detalhe-livro .capa-grande {
+        max-width: 240px;
+    }
+
+    .perfil-foto {
+        max-width: 320px;
+    }
+
+    .grade-livros {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    .grade-posts {
+        grid-template-columns: 1fr;
+    }
+
+    .filtros select {
+        flex: 1;
+    }
+}

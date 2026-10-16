@@ -1,0 +1,11 @@
+# Banco gerado automaticamente
+database/banco.sqlite
+
+# Arquivos do sistema/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Fotos enviadas pelo painel admin (ex: luiz-antonio-simas-1729000000.jpg)
+# As fotos originais usam "_" no nome e continuam no git.
+public/img/autores/*-[0-9]*.*
